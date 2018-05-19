@@ -1,9 +1,17 @@
+.wrapper {
+  width: 90%;
+  padding: 1.5em;
+}
+
 .header {
   padding-bottom: 3em;
+  font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
+  font-size: 10px;
 }
 
 .header .brand {
   font-size: 2em;
+  height: 2em;
 }
 
 .header > .row > ul > li {

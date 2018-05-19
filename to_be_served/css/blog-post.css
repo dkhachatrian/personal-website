@@ -316,4 +316,8 @@ table td {
     page-break-after: avoid;
   }
 }
-/*# sourceMappingURL=pandoc.css.map */
+
+.title {
+  margin-top: 0;
+}
+/*# sourceMappingURL=blog-post.css.map */

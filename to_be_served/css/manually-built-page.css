@@ -1,4 +1,59 @@
 @import url(c:\Users\David\Desktop\personal-website\to_be_served\css\bootstrap.min.css);
+.footer {
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  line-height: 5vh;
+  margin-bottom: 5vh;
+}
+
+.footer a {
+  color: rgba(0, 0, 0, 0.733);
+  font-size: 2em;
+  transition: opacity .2s ease-out;
+}
+
+.footer a:hover {
+  opacity: 0.5;
+}
+
+.footer .logo {
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0.2em;
+}
+
+.wrapper {
+  width: 90%;
+  padding: 1.5em;
+}
+
+.header {
+  padding-bottom: 3em;
+  font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
+  font-size: 10px;
+}
+
+.header .brand {
+  font-size: 2em;
+  height: 2em;
+}
+
+.header > .row > ul > li {
+  margin-left: 0.7em;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.header > .row > ul > li > a {
+  color: rgba(51, 73, 170, 0.712);
+}
+
+.wrapper {
+  width: 90%;
+  padding: 1.5em;
+}
+
 html {
   font-size: 100%;
   overflow-y: scroll;
@@ -9,56 +64,13 @@ html {
 
 body {
   color: #444;
-  font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+  font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
   font-size: 10px;
   line-height: 1em;
   padding: 1em;
   margin-bottom: 5vh;
   max-width: 100%;
   background-color: #fefefe;
-}
-
-.wrapper {
-  width: 90%;
-  padding: 1.5em;
-}
-
-.brand {
-  font-size: 2em;
-  height: 2em;
-}
-
-.header {
-  padding-bottom: 0.5em;
-}
-
-.header > .row > ul > li {
-  margin-left: 0.7em;
-  font-weight: bold;
-  font-size: 1.3em;
-}
-
-.header > .row > ul > li > a {
-  color: rgba(51, 73, 170, 0.712);
-}
-
-.footer {
-  width: 100%;
-  bottom: 0;
-  text-align: center;
-  line-height: 5vh;
-  height: 5vh;
-}
-
-.footer a {
-  color: rgba(0, 0, 0, 0.733);
-  font-size: 2em;
-}
-
-.footer .logo {
-  width: 1.5em;
-  height: 1.5em;
-  margin: 0.2em;
 }
 
 .main-message {

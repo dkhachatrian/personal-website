@@ -1,1 +1,24 @@
-/* No CSS *//*# sourceMappingURL=footer.css.map */
+.footer {
+  width: 100%;
+  bottom: 0;
+  text-align: center;
+  line-height: 5vh;
+  margin-bottom: 5vh;
+}
+
+.footer a {
+  color: rgba(0, 0, 0, 0.733);
+  font-size: 2em;
+  transition: opacity .2s ease-out;
+}
+
+.footer a:hover {
+  opacity: 0.5;
+}
+
+.footer .logo {
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0.2em;
+}
+/*# sourceMappingURL=footer.css.map */

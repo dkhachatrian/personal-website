@@ -14,8 +14,11 @@
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="bootstrap.min.css">
-  <link rel="stylesheet" href="pandoc.css">
   <link rel="stylesheet" href="header.css">
+  <link rel="stylesheet" href="footer.css">
+  <!-- <link rel="stylesheet" href="manually-built-page.css"> -->
+  <link rel="stylesheet" href="blog-post.css">
+  <link rel="stylesheet" href="pandoc.css">
 
 
   <!--[if lt IE 9]>
@@ -24,7 +27,8 @@
 </head>
 <body>
 
-    <header class="wrapper container-fluid header">
+    <!-- Header on larger viewports: One row -->
+    <header class="wrapper container-fluid header d-none d-sm-block">
         <div class="row align-items-center">
             <div class="h-100 col-auto mr-auto brand">
                 David G. Khachatrian
@@ -33,19 +37,33 @@
                 <li><a href=".">Home</a></li>
                 <li><a href="./presentations">Presentations</a></li>
                 <li><a href="./cv">CV</a></li>
-                <li><a href="./blog">Blog</a></li>
+                <!-- <li><a href="./blog">Blog</a></li> -->
+            </ul>
+        </div>
+    </header>
+    
+    <!-- Header on smaller viewports: Two stacked rows -->
+    <header class="wrapper container-fluid header d-sm-none">
+        <div class="row flex-column align-items-center">
+            <div class="col-auto brand">
+                David G. Khachatrian
+            </div>
+            <ul class="h-100 nav col-auto">
+                <li><a href=".">Home</a></li>
+                <li><a href="./presentations">Presentations</a></li>
+                <li><a href="./cv">CV</a></li>
+                <!-- <li><a href="./blog">Blog</a></li> -->
             </ul>
         </div>
     </header>
 
-
-
+    <div class="container-fluid wrapper">
 <header>
-<h1 class="title">My title</h1>
+<h1 class="title">How you, too, can have your own website and personal mailing address for $12 a year*!</h1>
 <p class="author"></p>
 <p class="date">October 25, 2017</p>
 </header>
-<h1 id="how-you-too-can-have-your-own-website-and-personal-mailing-address-for-12-a-year">How you, too, can have your own website and personal mailing address for $12 a year*!</h1>
+<!-- <h1 id="how-you-too-can-have-your-own-website-and-personal-mailing-address-for-12-a-year">How you, too, can have your own website and personal mailing address for $12 a year*!</h1> -->
 <p><em>*Subject to costs in registering the domain of your choice.</em></p>
 <p>I’ve had this vague notion of wanting to make a website for myself for a while now. Its original purpose was largely frivolous, largely blog-like – so that all three interested parties can read about what I’ve done, what I want to do, and what I think or want to share (there are so many neat things in the world, after all!), I suppose? After a while, I figured it’d be more convenient and seem more “professional” and help “build my brand” to have my own little corner of the internet to point to on resumes and the like. Unfortunately, this shift in frame to a more professional aim may behoove me to sound more “professional” and less frivolous with any musings I may publish – but I suppose we’ll see how that goes once I made a home for any such musings.</p>
 <p>In any case, I finally got serious about getting a website up and running and wanted to build things from scratch. Not really because it’s cheaper (despite what the title may lead one to believe). I wanted to get a better feel for what goes inside making a website operational (turns out, quite a bit – “full stack web dev” isn’t easy, who woulda thunk?).</p>
@@ -94,5 +112,20 @@
 <ul>
 <li>DK, 10/25/17</li>
 </ul>
+</div>
+
+<footer class="footer">
+    <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <a href="https://github.com/dkhachatrian"><img class="logo" src="/img/github.svg"></a>
+                    <a href="mailto:david@davidkhachatrian.com"><img class="logo" src="/img/mail-alt.svg"></a>
+                    <a href="https://linkedin.com/in/dgkhach"><img class="logo" src="/img/linkedin.svg"></a>
+                    <!-- <a href='#'><span class="icon-github"></span></a> -->
+                </div>
+            </div>
+    </div>
+</footer>
+
 </body>
 </html>

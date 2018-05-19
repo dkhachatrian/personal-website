@@ -1,14 +1,16 @@
 @import 'bootstrap.min.css';
 // @import 'personal-website-fonts.css';
 // @import 'icons.css';
-// @import '_footer.scss';
-// @import '_header.scss';
+@import '_vars.scss';
+@import 'footer.scss';
+@import 'header.scss';
+@import 'wrapper.scss';
 
-$main-text-color: #444;
-$main-background-color: #fefefe;
-$header-link-color: rgba(51, 73, 170, 0.712);
-$footer-icon-color: rgba(0, 0, 0, 0.733);
-$footer-size: 5vh;
+// $main-text-color: #444;
+// $main-background-color: #fefefe;
+// $header-link-color: rgba(51, 73, 170, 0.712);
+// $footer-icon-color: rgba(0, 0, 0, 0.733);
+// $footer-size: 5vh;
 
 
 
@@ -25,9 +27,9 @@ body {
     // display: flex;
     // flex-direction: column;
     color: $main-text-color;
-    font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+    font-family: $main-font-family;
     // font-size: 12px;
-    font-size: 10px;
+    font-size: $main-font-size;
     // font-size: 1vh;
     // line-height: 1.7;
     line-height: 1em;
@@ -37,77 +39,20 @@ body {
     // margin: auto;
     max-width: 100%;
     background-color: $main-background-color;
-}
+}  
 
 
 
-.wrapper {
-    width: 90%;
-    // height: 95%;
-    // margin: 1.5em;
-    padding: 1.5em;
-    // margin: auto;
-    // padding-bottom: $footer-size;
-    // vertical-align: center;
-}
+// .wrapper {
+//     width: 90%;
+//     // height: 95%;
+//     // margin: 1.5em;
+//     padding: 1.5em;
+//     // margin: auto;
+//     // padding-bottom: $footer-size;
+//     // vertical-align: center;
+// }
 
-
-.brand {
-    font-size: 2em;
-    height: 2em;
-    // line-height: 2em;
-}
-
-.header {
-    & {
-        // padding-bottom: 3em;
-        padding-bottom: 0.5em;
-    }
-}
-.header > .row > ul > li {
-    & {
-        margin-left: 0.7em; // have some breathing room
-            // make links stand out
-        font-weight: bold;
-        font-size: 1.3em;
-    }
-    & > a {
-        color: $header-link-color;
-        // font-weight: bold;
-
-    }
-
-}
-
-// "sticky footer" is the destroyer of dreams
-// (no wonder most footers have filled background boxes 
-// -- so the overlappping nastiness isn't viewable)
-// we'll just give it some breathing room and stop 
-// pulling out hair out
-.footer {
-    & {
-        // height: $footer-size + 2vh;
-        width: 100%;
-        // position: absolute;
-        bottom: 0;
-        // height: 60px;
-        // color: $main-text-color;
-        // background-color: $main-background-color;
-        // margin-top: $footer-size + 2vh;
-        text-align: center;
-        line-height: $footer-size;
-        height: $footer-size;
-    }
-    & a {
-        color: $footer-icon-color;
-        font-size: 2em;
-    }
-    &   .logo { // links to profiles
-        width: 1.5em;
-        height: 1.5em;
-        margin: 0.2em;
-    }
-}
 
 
 .main-message {
@@ -141,5 +86,5 @@ body {
             width: 50%;
             padding: 1.5em;
         }
-        body {font-size: 12px;}
+        body {font-size: $main-font-size-lg;}
     }
