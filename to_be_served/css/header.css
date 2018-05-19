@@ -1,0 +1,18 @@
+.header {
+  padding-bottom: 3em;
+}
+
+.header .brand {
+  font-size: 2em;
+}
+
+.header > .row > ul > li {
+  margin-left: 0.7em;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.header > .row > ul > li > a {
+  color: rgba(51, 73, 170, 0.712);
+}
+/*# sourceMappingURL=header.css.map */

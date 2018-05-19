@@ -1,0 +1,87 @@
+@import url(c:\Users\David\Desktop\personal-website\to_be_served\css\bootstrap.min.css);
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  color: #444;
+  font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+  font-size: 10px;
+  line-height: 1em;
+  padding: 1em;
+  margin-bottom: 5vh;
+  max-width: 100%;
+  background-color: #fefefe;
+}
+
+.wrapper {
+  width: 90%;
+  padding: 1.5em;
+}
+
+.brand {
+  font-size: 2em;
+}
+
+.header {
+  padding-bottom: 3em;
+}
+
+.header > .row > ul > li {
+  margin-left: 0.7em;
+  font-weight: bold;
+  font-size: 1.3em;
+}
+
+.header > .row > ul > li > a {
+  color: rgba(51, 73, 170, 0.712);
+}
+
+.footer {
+  width: 100%;
+  bottom: 0;
+  background-color: #fefefe;
+  text-align: center;
+  line-height: 5vh;
+  height: 5vh;
+}
+
+.footer a {
+  color: rgba(0, 0, 0, 0.733);
+  font-size: 2em;
+}
+
+.main-message {
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 1.5em;
+}
+
+.main-message > p.start {
+  margin-bottom: 0;
+}
+
+.main-message p.connected {
+  margin-top: 0.2em;
+}
+
+.logo {
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0.2em;
+}
+
+@media (min-width: 1200px) {
+  .wrapper {
+    width: 50%;
+    padding: 1.5em;
+  }
+  body {
+    font-size: 12px;
+  }
+}
+/*# sourceMappingURL=new_again.css.map */

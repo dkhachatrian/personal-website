@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <meta name="dcterms.date" content="2017-10-25" />
+  <title>My title</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="bootstrap.min.css">
+  <link rel="stylesheet" href="pandoc.css">
+  <link rel="stylesheet" href="header.css">
+
+
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+
+    <header class="wrapper container-fluid header">
+        <div class="row align-items-center">
+            <div class="h-100 col-auto mr-auto brand">
+                David G. Khachatrian
+            </div>
+            <ul class="h-100 nav col-auto">
+                <li><a href=".">Home</a></li>
+                <li><a href="./presentations">Presentations</a></li>
+                <li><a href="./cv">CV</a></li>
+                <li><a href="./blog">Blog</a></li>
+            </ul>
+        </div>
+    </header>
+
+
+
+<header>
+<h1 class="title">My title</h1>
+<p class="author"></p>
+<p class="date">October 25, 2017</p>
+</header>
+<h1 id="how-you-too-can-have-your-own-website-and-personal-mailing-address-for-12-a-year">How you, too, can have your own website and personal mailing address for $12 a year*!</h1>
+<p><em>*Subject to costs in registering the domain of your choice.</em></p>
+<p>I’ve had this vague notion of wanting to make a website for myself for a while now. Its original purpose was largely frivolous, largely blog-like – so that all three interested parties can read about what I’ve done, what I want to do, and what I think or want to share (there are so many neat things in the world, after all!), I suppose? After a while, I figured it’d be more convenient and seem more “professional” and help “build my brand” to have my own little corner of the internet to point to on resumes and the like. Unfortunately, this shift in frame to a more professional aim may behoove me to sound more “professional” and less frivolous with any musings I may publish – but I suppose we’ll see how that goes once I made a home for any such musings.</p>
+<p>In any case, I finally got serious about getting a website up and running and wanted to build things from scratch. Not really because it’s cheaper (despite what the title may lead one to believe). I wanted to get a better feel for what goes inside making a website operational (turns out, quite a bit – “full stack web dev” isn’t easy, who woulda thunk?).</p>
+<p>As a fun aside, here is what my initial flowchart looked after noting just <em>a few</em> of the changes that took place once I actually started building the website:</p>
+<p>// insert picture here</p>
+<p><em>Moral of the story: A plan never survives contact with the enemy.</em></p>
+<p>Anyway, before I yammer on for too long, let’s quickly list the steps needed to get your own website and mailing address up and running:</p>
+<ol type="1">
+<li>Design a website.</li>
+<li>Deploy that website using web server software on a continuously running machine.</li>
+<li>Obtain a domain name, and point that domain name to your continuously running machine. And for bonus points,</li>
+<li>Obtain an SSL certificate from a certificate authority to allow for secure communication between client and server.</li>
+<li>Set up an SMTP relay server on your continuously running machine to allow for a personalized mail address.</li>
+</ol>
+<p>Now, for the tl;dr recommendations to reach the advertised price point:</p>
+<ol type="1">
+<li>Design a website (using HTML/CSS, etc.)</li>
+<li>Set up an f1-micro instance running a Linux distro on Google Compute Engine.
+<ul>
+<li>Reserve a static external IP address and ensure ports 80 and 443 are allowed to listen to external sources through Google’s VPC firewall settings.</li>
+</ul></li>
+<li>Copy the website files over to your f1-micro instance, and configure Nginx or Apache to serve those files</li>
+<li>Obtain a domain name from Google Domains ($12/yr for a .com TLD).
+<ul>
+<li>Make A records from @ [‘no subdomain’] to the external IP address reserved in (2). Might want to have an A record for ‘www’ ~&gt; [IP address] as well.</li>
+</ul></li>
+<li>Obtain an SSL certificate from Let’s Encrypt using certbot, and set up a cron task for certbot to renew the SSL certificates as needed.</li>
+<li>Set up an SMTP relay server on your instance using postfix, then have Mailgun send and receive email from your personalized email address using your configured relay server.
+<ul>
+<li>Some relevant links: https://cloud.google.com/compute/docs/tutorials/sending-mail/ https://renzo.lucioni.xyz/mail-forwarding-with-mailgun/</li>
+</ul></li>
+</ol>
+<p>Now, let’s not be so glib (and instead be possibly excessively verbose)! Let me expound upon my personal experience going through this process:</p>
+<ol type="1">
+<li><p>Website design: Not necessarily a quick process. You can certainly build all the HTML and CSS from scratch if you’d like to fast-forward to a more usable state, it’s worth checking out different HTML/CSS templates available online. For example, I modified an example from the Bootstrap website. From there, just make sure your file structure makes sense to you and you hook your &lt;href&gt;’s properly, and you’re good to go. This was my first non-trivial use of HTML and CSS, so it was definitely slow-going. But now I feel a bit more comfortable with tweaking the look of things via HTML, and I at least feel comfortable enough with CSS to recognize what I’d need to modify if I wanted to change the look of a defined class. BrowerSync (browsersync.io) made the process much quicker. The automatic refreshes it facilitates after I modified the source code made front-end design/tweaks far less painful.</p></li>
+<li><p>Web server setup: Lean software for a tiny VM. Only the Linux server distributions come with no strings attached (makes sense in retrospect – Windows Server licenses aren’t free after all), so I got to recall all the neat programs standard on Linux OSes. I’m really partial to bash over cmd though, so that wasn’t too bad. Before I forgot, I reserved a static external IP address for DNS registration later on (though I didn’t know how I would be doing that – more on that later). I was originally going to use Apache as my web server, but a friend of mine advised me to choose nginx because “Apache sucks”. As incontrovertible as that argument may be, I did a little bit of outside reading (at https://www.digitalocean.com/community/tutorials/apache-vs-nginx-practical-considerations) before making my decision. I ultimately went with his suggestion. Nginx is built to scale easily and efficiently while running on minimal resources compared to Apache (ah, the joys of event-driven programming ~ ), so it’s probably a better choice on our <strong>certifiably redoubtable</strong> 0.2 vCPUs and 0.9 GB RAM. But before we get too carried away, we still have a domain name to buy!</p></li>
+<li><p>Domain registration: A tale of two titans, and learning about the tubes of the internet. I figured I owed Google some patronage since I was mooching off the free tier of their Google Compute Engine, so I bought davidkhachatrian.com through Google Domains. I had thought all domain registrars are roughly the same in price, but I since realized that Google Domains’s flat $12/yr price was much better than that of other common domain registrars: Namecheap, whom I would have used otherwise, offers a lower price for the first year, but their cost of renewal and WHOIS privacy protection soon counteracts any first-year discounts relative to Google’s $12/yr flat fee. So even better – my patronage is doubly deserved. Titans aside, my main thought after my purchase was “OK, now what?” I never was sure exactly how I was supposed to “tell the internet” where my website is, how to update the DNS to point to my IP address. Google Domains didn’t exactly make this all too clear either, but Google Search was there to point me to resource records. (Totally makes sense that something like resource records would exist, but that’s something you normally just take for granted when you type in the name of a website.) So off I went to update the resource records, and all was well. Until…</p></li>
+<li><p>Email, Part I: Just, just the worst.* *Turns out, not (entirely) email’s fault. The goal was to set up my DNS records and VM instance so that I could use david@davidkhachatrian.com as an alias on a GMail account (to which I have much quicker access). This <em>would</em> require setting up an SMTP mail server on my instance so that GMail could verify I had access to this other email account on this other server. (Little did I know at the time that this was doomed to fail – more on that later.) So I went through guide after guide and doc page after doc page configuring postfix, configuring nginx, setting up HTTP authentication scripts (for nginx), self-signing certificates (for my SMTP server), and pulling my hair out in frustration as I noted that telnet happily connected to my SMTP servers through localhost but never through my external IP address. Hilariously, I somehow forgot that firewalls existed and only explictly opened ports 25, 465, and 587 for inbound and outbound connections – or so I had thought. In total, I probably spent the better part of two days before contacting Google Cloud Support explaining my woes – and learning the truth. It wasn’t all bad. I learned a great deal about how mail works, the certification creation process, and some slightly-past-beginner use-cases for nginx. But I had thrown up my hands and decided I needed to switch tasks while waiting for a response from Google Cloud Support, for my sanity if nothing else.</p></li>
+<li><p>SSL certificates: And people normally pay <em>how much</em> for these? Answer: way more than one should. There’s an argument to be had if I were trying to open up an e-commerce platform; Extended Validation SSL certificates definitely have a place there. But for a website that’s currently just a landing page and that probably won’t be storing a database of user credentials anytime soon, it would be highway robbery to pay &gt;$20 a year for the cheapest commercially available SSL certificate. Thankfully, the Internet Security Research Group agrees, so they made Let’s Encrypt!, a completely free certificate authority for these sorts of less critical use-cases. The Electronic Frontier Foundation made the complementary program, certbot, which automates certificate requests from Let’s Encrypt (and presumably boasts integration with web servers like nginx, but I found I had to manually configure the server files myself). Of course, rarely does something work perfectly the first time. Turns out there’s a bit of a chicken-and-egg problem when trying to receive the first batch of certificates for the website. Let’s Encrypt doesn’t see proof that you’re the rightful owner of the websites you’re claiming to get, so it refuses. Makes sense in hindsight – would be a bit awkward if I could get a certificate for facebook.com just by asking. Using “certbot certonly –webroot” solved this. And after determining that “certbot renew” would successfully update the certificates and figuring out how cron works, I set up an automated update. Fun stuff! But what about the mail?</p></li>
+<li><p>Email, Part II: 10/10 customer support and a Mailgun. Got back a response from Google Cloud Support. Turns out my firewall configurations were for naught – Google specifically blocks outbound connections from the common mail ports 25, 465, and 587. <em>(Oh, and how I sighed in exasperation~)</em> The support representative, John, linked me to the relevant page (https://cloud.google.com/compute/docs/tutorials/sending-mail/) documenting the block and ways to send mail despite it. A quick aside: John, you’re honestly great. I did not expect such encouragement and cheer from a support representative, but your excitement at hearing I solved my problem with your help made my day.</p></li>
+</ol>
+<p>// insert picture of last few emails with John</p>
+<p>I looked into the different email senders the documentation page suggested: Sendgrid, Mailgun, and Mailjet. Google searching quickly eliminated Mailjet. I originally chose Sendgrid but soon found out that while it may excel at sending emails (hence the name), it was far more cumbersome to handle the reception of emails at an email address. So in the end, I switched to Mailgun and, after configuring my MX records, rejoiced in having finally established my GMail alias. I still find it kind of funny that the only method to make this work on Google’s VMs is through a bulk mail service, and I realized through some initial alias testing that Mailgun’s servers (again, unsurprisingly in retrospect) send out emails in waves, meaning that it may sometimes take over ten minutes for an email from david@davidkhachatrian.com to reach its destinction. But hey, it ends up getting there, so whatever works, right?</p>
+<p>// insert screenshot of established GMail alias</p>
+<p>Here we stand now: definitely a little older, hopefully a little wiser, and probably disproportionately closer to gray hair. But I think it was a worthwhile experience – if nothing else, knowing that I’ve barely scratched the surface, I have a more informed appreciation for the effort that goes into web development.</p>
+<ul>
+<li>DK, 10/25/17</li>
+</ul>
+</body>
+</html>
