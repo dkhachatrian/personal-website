@@ -25,10 +25,11 @@ body {
 
 .brand {
   font-size: 2em;
+  height: 2em;
 }
 
 .header {
-  padding-bottom: 3em;
+  padding-bottom: 0.5em;
 }
 
 .header > .row > ul > li {

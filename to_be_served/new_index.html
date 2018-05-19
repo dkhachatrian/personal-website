@@ -46,7 +46,8 @@
         <!-- </div> -->
     <!-- </header> -->
 
-<header class="wrapper container-fluid header">
+    <!-- Header on larger viewports: One row -->
+<header class="wrapper container-fluid header d-none d-sm-block">
     <div class="row align-items-center">
         <div class="h-100 col-auto mr-auto brand">
             David G. Khachatrian
@@ -55,11 +56,25 @@
             <li><a href=".">Home</a></li>
             <li><a href="./presentations">Presentations</a></li>
             <li><a href="./cv">CV</a></li>
-            <li><a href="./blog">Blog</a></li>
+            <!-- <li><a href="./blog">Blog</a></li> -->
         </ul>
     </div>
 </header>
 
+<!-- Header on smaller viewports: Two stacked rows -->
+<header class="wrapper container-fluid header d-sm-none">
+    <div class="row flex-column align-items-center">
+        <div class="col-auto brand">
+            David G. Khachatrian
+        </div>
+        <ul class="h-100 nav col-auto">
+            <li><a href=".">Home</a></li>
+            <li><a href="./presentations">Presentations</a></li>
+            <li><a href="./cv">CV</a></li>
+            <!-- <li><a href="./blog">Blog</a></li> -->
+        </ul>
+    </div>
+</header>
 
 <div class="container-fluid wrapper">
     <!-- <header class="container-fluid header">
