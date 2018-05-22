@@ -1,10 +1,15 @@
-@import '_vars.scss';
+@import '_vars';
 
 // "sticky footer" is the destroyer of dreams
 // (no wonder most footers have filled background boxes 
 // -- so the overlappping nastiness isn't viewable)
 // we'll just give it some breathing room and stop 
 // pulling out hair out
+
+// ^ Actually, doing sticky footer as per
+// https://materializecss.com/footer.html
+// (removing extra margins)
+
 .footer {
     & {
         // height: $footer-size + 2vh;
@@ -18,13 +23,13 @@
         text-align: center;
         line-height: $footer-size;
         // height: $footer-size + $footer-bottom-margin;
-        margin-bottom: $footer-bottom-margin; // breathing room at the bottom
+        // margin-bottom: $footer-bottom-margin; // breathing room at the bottom
     }
     & a {
         color: $footer-icon-color;
         font-size: 2em;
         // slowly lose opacity (from 1) on hover
-        transition: opacity .2s ease-out;
+        transition: opacity .1s ease-out;
     }
     & a:hover {
         opacity: 0.5;

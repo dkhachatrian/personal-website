@@ -1,10 +1,13 @@
 @import 'bootstrap.min.css';
 // @import 'personal-website-fonts.css';
 // @import 'icons.css';
-@import '_vars.scss';
-@import 'footer.scss';
-@import 'header.scss';
-@import 'wrapper.scss';
+@import '_vars';
+// @import 'footer.css';
+// @import 'header.css';
+// @import 'wrapper.css';
+// @import 'footer';
+// @import 'header';
+// @import 'wrapper';
 
 // $main-text-color: #444;
 // $main-background-color: #fefefe;
@@ -14,7 +17,7 @@
 
 
 
-html {
+html { 
     font-size: 100%;
     overflow-y: scroll;
     -webkit-text-size-adjust: 100%;
@@ -35,12 +38,25 @@ body {
     line-height: 1em;
     padding: 1em;
     // padding-bottom: $footer-size;
-    margin-bottom: $footer-size;
+    // margin-bottom: $footer-size; // only if doing "simple" footer
     // margin: auto;
     max-width: 100%;
     background-color: $main-background-color;
 }  
 
+// try a sticky footer again?
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto; //flexboxes still seem like magic to me...
+}
+
+// </sticky footer settings>
 
 
 // .wrapper {
@@ -81,10 +97,16 @@ body {
 
 // @include media-breakpoint-down(sm) { // not working...
     // for viewports LARGER than min-width
-    @media (min-width: 1200px) {
-        .wrapper {
-            width: 50%;
-            padding: 1.5em;
-        }
-        body {font-size: $main-font-size-lg;}
+@media (min-width: 1200px) {
+    .wrapper {
+        width: 50%;
+        padding: 1.5em;
     }
+    body {font-size: $main-font-size-lg;}
+}
+
+
+      
+
+
+

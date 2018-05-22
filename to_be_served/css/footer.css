@@ -3,13 +3,12 @@
   bottom: 0;
   text-align: center;
   line-height: 5vh;
-  margin-bottom: 5vh;
 }
 
 .footer a {
   color: rgba(0, 0, 0, 0.733);
   font-size: 2em;
-  transition: opacity .2s ease-out;
+  transition: opacity .1s ease-out;
 }
 
 .footer a:hover {
