@@ -1,0 +1,106 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="DK's pocket of the Internet.">
+    <meta name="author" content="David G. Khachatrian">
+
+<title>test - davidkhachatrian.com</title>
+<link href="/css/bootstrap-mod.css" rel="stylesheet">
+<link href="/css/manually-built-page.css" rel="stylesheet">
+<link href="/css/header.css" rel="stylesheet">
+<link href="/css/footer.css" rel="stylesheet">
+<link href="/css/wrapper.css" rel="stylesheet">
+<link href="/css/pandoc-mod.css" rel="stylesheet">
+</head><body>
+<!-- Header on larger viewports: One row -->
+<header class="wrapper container-fluid header d-none d-lg-block">
+    <div class="row align-items-center">
+        <div class="h-100 col-auto mr-auto brand">
+            David G. Khachatrian
+        </div>
+        <ul class="h-100 nav col-auto">
+            <li><a href="/">Home</a></li>
+            <li><a href="/presentations">Presentations</a></li>
+            <li><a href="/cv">CV</a></li>
+            <!-- <li><a href="/blog">Blog</a></li> -->
+        </ul>
+    </div>
+</header>
+
+<!-- Header on smaller viewports: Two stacked rows -->
+<header class="wrapper container-fluid header d-lg-none">
+    <div class="row flex-column align-items-center">
+        <div class="col-auto brand">
+            David G. Khachatrian
+        </div>
+        <ul class="h-100 nav col-auto">
+            <li><a href="/">Home</a></li>
+            <li><a href="/presentations">Presentations</a></li>
+            <li><a href="/cv">CV</a></li>
+            <!-- <li><a href="/blog">Blog</a></li> -->
+        </ul>
+    </div>
+</header>
+<main><div class="container-fluid wrapper"><h1 id="so-you-cant-install-that-wheel-huh">So, you can't install that wheel, huh?</h1>
+<p>In particular, say you're trying to install a package and you get an error like:</p>
+<pre><code>&gt; pip install tensorflow
+
+Could not find a version that satisfies the requirement tensorflow (from versions: )
+No matching distribution found for tensorflow
+</code></pre>
+<p>(You may guess which package was giving me trouble.) You go straight to PyPI, link/download your specific OS version (in my case, amd64):</p>
+<pre><code>&gt; pip install --upgrade https://files.pythonhosted.org/packages/35/f6/8af765c7634bc72a902c50d6e7664cd1faac6128e7362510b0234d93c974/tensorflow-1.7.0-cp36-cp36m-win_amd64.whl
+
+tensorflow-1.7.0-cp36-cp36m-win_amd64.whl is not supported wheel on this platform
+</code></pre>
+<p>Then you give up and choose the most generic option to make the errors stop:</p>
+<pre><code>&gt; pip install --upgrade https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.7.0-py3-none-any.whl
+
+Installing collected packages: ...
+</code></pre>
+<p>Finally, it installs! (You may already notice something funny, but let's press on.) You go to verify it installed correctly:</p>
+<pre><code>&gt; python
+
+Python 3.6.5 ...
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import tensorflow as tf
+...
+ImportError: cannot import name pywrap_tensorflow
+</code></pre>
+<p>You can't believe it! Checking online, you see that you may need MSVCP140.DLL in your PATH -- yup, it's there. No other troubleshooting suggestions! You wonder and wonder, when suddenly it becomes clear.</p>
+<h2 id="pip-doesnt-really-care-what-os-youre-running">pip doesn't really care what OS you're running.</h2>
+<p>What it cares about is your <em>Python</em> version.</p>
+<p>Which, yes, cares about what OS you're running. But when pip is checking whether a wheel is supported on a platform (e.g. &quot;win_amd64&quot;), it's curious about:</p>
+<blockquote>
+<p>Python 3.6.5 (...) [***MSC v.1900 64 bit (AMD64)***] on win32</p>
+</blockquote>
+<p>Which, as you may have guessed, was not amd64 when I ran the above pip commands. I'm not entirely sure why I had the 32-bit version of Python installed as default, but it isn't the case anymore. Though I suppose a fun fact was learned: the Tensorflow wheel meant only to be used as a last resort for Mac OSX users (hence &quot;/mac/&quot; in the none-any.whl path) can be installed on any OS, a fact which will eventually lead to further levels of confusion.</p>
+<p>Finally, with this revelation and a few installs, we get:</p>
+<pre><code>&gt; pip install tensorflow
+
+Installing collected packages: ...
+[...]
+&gt;
+&gt; python
+Python 3.6.5 ...
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+&gt;&gt;&gt; import tensorflow as tf
+&gt;&gt;&gt;
+</code></pre>
+<p>Huzzah!</p>
+<p>- DK, 4/26/18</p>
+</div></main>
+<footer class="footer">
+        <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <a href="https://github.com/dkhachatrian"><img class="logo" src="/img/github.svg"></a>
+                        <a href="mailto:david@davidkhachatrian.com"><img class="logo" src="/img/mail-alt.svg"></a>
+                        <a href="https://linkedin.com/in/dgkhach"><img class="logo" src="/img/linkedin.svg"></a>
+                        <!-- <a href='#'><span class="icon-github"></span></a> -->
+                    </div>
+                </div>
+        </div>
+</footer>
+</body></html>

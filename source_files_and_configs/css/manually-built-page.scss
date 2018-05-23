@@ -1,0 +1,108 @@
+// @import 'bootstrap.min.css';
+// @import 'personal-website-fonts.css';
+// @import 'icons.css';
+@import '_vars';
+// @import 'footer.css';
+// @import 'header.css';
+// @import 'wrapper.css';
+// @import 'footer';
+// @import 'header';
+// @import 'wrapper';
+
+// $main-text-color: #444;
+// $main-background-color: #fefefe;
+// $header-link-color: rgba(51, 73, 170, 0.712);
+// $footer-icon-color: rgba(0, 0, 0, 0.733);
+// $footer-size: 5vh;
+
+
+
+html { 
+    font-size: 100%;
+    overflow-y: scroll;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+  
+body {
+    // display: table;
+    // display: flex;
+    // flex-direction: column;
+    color: $main-text-color;
+    font-family: $main-font-family;
+    // font-size: 12px;
+    font-size: $main-font-size;
+    // font-size: 1vh;
+    line-height: 1.7;
+    // line-height: 1em; 
+    padding: 1em;
+    // padding-bottom: $footer-size;
+    // margin-bottom: $footer-size; // only if doing "simple" footer
+    // margin: auto;
+    max-width: 100%;
+    background-color: $main-background-color;
+}  
+
+// try a sticky footer again?
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto; //flexboxes still seem like magic to me...
+}
+
+// </sticky footer settings>
+
+
+// .wrapper {
+//     width: 90%;
+//     // height: 95%;
+//     // margin: 1.5em;
+//     padding: 1.5em;
+//     // margin: auto;
+//     // padding-bottom: $footer-size;
+//     // vertical-align: center;
+// }
+
+
+
+.main-message {
+    & {
+        text-align: center;
+        font-size: 1.5em;
+        line-height: 1.5em;
+    }
+    & > p.start {
+        margin-bottom: 0;
+    }
+    // logically connected to most recent <p class="start">,
+    // but slight breathing room would be nice
+    & p.connected { 
+    // padding-bottom: 0.1em;
+    margin-top: 0.2em;
+    // margin-bottom: inherit;
+    // padding-top: 0.3em;
+    }
+}
+
+
+ 
+
+// handle different viewport sizes
+
+// @include media-breakpoint-down(sm) { // not working...
+    // for viewports LARGER than min-width
+@media (min-width: 1200px) {
+    body {font-size: $main-font-size-lg;}
+}
+
+
+      
+
+
+

@@ -1,0 +1,22 @@
+// // relative sizes for bootstrap
+// // as per https://stackoverflow.com/questions/47747208/bootstrap-4-change-breakpoints
+// // for now, will leave untouched and have HTML fit to default breakpoints
+// // but may be worth changing
+// $grid-breakpoints: (
+//         xs: 0,
+//         sm: 576px,
+//         md: 768px,
+//         lg: 992px,
+//         xl: 1200px,
+//         xxl: 1900px
+// );
+
+// $container-max-widths: (
+//         sm: 540px,
+//         md: 720px,
+//         lg: 960px,
+//         xl: 1140px,
+//         xxl: 1610px
+// );
+
+@import "./_bootstrap/bootstrap";

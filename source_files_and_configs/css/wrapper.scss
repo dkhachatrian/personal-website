@@ -1,0 +1,22 @@
+.wrapper {
+    width: 90%;
+    // height: 95%;
+    // margin: 1.5em;
+    padding: 1.5em;
+    // margin: auto;
+    // padding-bottom: $footer-size;
+    // vertical-align: center;
+}
+
+
+// handle different viewport sizes
+
+// @include media-breakpoint-down(sm) { // not working...
+    // for viewports LARGER than min-width
+@media (min-width: 1200px) {
+    .wrapper { 
+        // width: 72%;
+        width: 80%;
+        padding: 1.5em;
+    }
+} 

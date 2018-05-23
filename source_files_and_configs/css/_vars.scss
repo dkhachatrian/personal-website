@@ -1,0 +1,45 @@
+// defaults for <body>
+
+$main-text-color: #444;
+$main-background-color: #fefefe;
+    // absolute font sizes
+    // (Let's make these relative to browser default:
+    //  100% ~ 16px usually)
+$main-font-size: 87.5%; // ~14px
+$main-font-size-lg: 100%; // ~16px, for larger devices
+$main-font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+
+// header
+
+$header-link-color: rgba(51, 73, 170, 0.712);
+
+
+// footer
+
+$footer-icon-color: rgba(0, 0, 0, 0.733);
+$footer-size: 5vh; // leave space at the bottom for footer logos
+$footer-bottom-margin: 10vh;
+    // leave breathing room from logos to end of screen
+
+// relative sizes for bootstrap
+// as per https://stackoverflow.com/questions/47747208/bootstrap-4-change-breakpoints
+// for now, will leave untouched and have HTML fit to default breakpoints
+// but may be worth changing
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px,
+        xxl: 1900px
+);
+
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 960px,
+        xl: 1140px,
+        xxl: 1610px
+);
+
+// @import "../node_modules/bootstrap/scss/bootstrap";

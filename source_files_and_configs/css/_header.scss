@@ -1,0 +1,24 @@
+$header-link-color: rgba(51, 73, 170, 0.712);
+
+.header {
+    & {
+        padding-bottom: 3em;
+    }
+    & > .brand { // i.e., my name
+        font-size: 2em;
+    }
+}
+.header > .row > ul > li {
+    & {
+        margin-left: 0.7em; // have some breathing room
+            // make links stand out
+        font-weight: bold;
+        font-size: 1.3em;
+    }
+    & > a {
+        color: $header-link-color;
+        // font-weight: bold;
+
+    }
+
+}

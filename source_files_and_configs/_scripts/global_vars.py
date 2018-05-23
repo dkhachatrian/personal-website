@@ -12,8 +12,8 @@ root_dir = dirname(source_dir)
 serve_dir = os_join(root_dir, 'to_be_served')
 
 
-include_list_standard = ['bootstrap', 'manually-built-page', 'header', 'footer', 'wrapper']
-include_list_pandoc = include_list_standard + ['pandoc']
+include_list_standard = ['bootstrap-mod', 'manually-built-page', 'header', 'footer', 'wrapper']
+include_list_pandoc = include_list_standard + ['pandoc-mod']
 
 re_source_matcher = re.compile(source_dirname)
 
@@ -21,7 +21,7 @@ re_source_matcher = re.compile(source_dirname)
 
 header = """
 <!-- Header on larger viewports: One row -->
-<header class="wrapper container-fluid header d-none d-sm-block">
+<header class="wrapper container-fluid header d-none d-lg-block">
     <div class="row align-items-center">
         <div class="h-100 col-auto mr-auto brand">
             David G. Khachatrian
@@ -36,7 +36,7 @@ header = """
 </header>
 
 <!-- Header on smaller viewports: Two stacked rows -->
-<header class="wrapper container-fluid header d-sm-none">
+<header class="wrapper container-fluid header d-lg-none">
     <div class="row flex-column align-items-center">
         <div class="col-auto brand">
             David G. Khachatrian

@@ -27,12 +27,15 @@ def assemble_HTML(page_title, css_include_list, main_fp):
 
 
 
-def create_main_fragment_from_file(main_fp):
+def create_main_fragment_from_file(main_fp, encoding = 'utf-8'):
     """
     Return the contents of the file (wrapped with <main> tags) in the filepath.
     """
-    with open(main_fp, mode = 'r') as f:
-        main_contents = wrap_with_tag(f.read(), 'main')
+    with open(main_fp, mode = 'r', encoding = 'utf-8') as f:
+        # currently also have a wrapper inside main
+        main_contents = wrap_with_tag(f.read(), 'div', specifiers = {'class': 'container-fluid wrapper'})
+        main_contents = wrap_with_tag(main_contents, 'main')
+        # main_contents = wrap_with_tag(f.read(), 'main')
         # main_contents = f.read()
 
     return main_contents

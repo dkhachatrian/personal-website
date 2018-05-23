@@ -1,0 +1,48 @@
+html {
+  font-size: 100%;
+  overflow-y: scroll;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  color: #444;
+  font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
+  font-size: 87.5%;
+  line-height: 1.7;
+  padding: 1em;
+  max-width: 100%;
+  background-color: #fefefe;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.main-message {
+  text-align: center;
+  font-size: 1.5em;
+  line-height: 1.5em;
+}
+
+.main-message > p.start {
+  margin-bottom: 0;
+}
+
+.main-message p.connected {
+  margin-top: 0.2em;
+}
+
+@media (min-width: 1200px) {
+  body {
+    font-size: 100%;
+  }
+}
+/*# sourceMappingURL=manually-built-page.css.map */
