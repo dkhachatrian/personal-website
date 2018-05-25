@@ -1,0 +1,4 @@
+<- ## BEGIN METADATA ## 
+title :: foo
+date :: barcelona
+## END METADATA ## ->
