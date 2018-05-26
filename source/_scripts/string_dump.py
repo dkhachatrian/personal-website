@@ -1,22 +1,29 @@
 import global_vars as gv
+# import re
 
-def assemble_HTML(page_title, css_include_list, main_fp):
+# TODO: change functions to handle strings instead of file_paths
+# (we'll open and file.read() everything beforehand when necessary)
+
+def assemble_HTML(main_str, css_include_list):
     """
     Build HTML file. (Returns a string.)
     Pass in following input:
 
     For <head>:
-        - 'page_title'
+        - 'main_str' (which contains metadata in beginning comments)
         - 'css_include_list'
     For <body>:
-        - 'main_fp'
+        - 'main_str' (the string to be slotted between header and footer,
+                        in body)
     """
     output_str = ''
 
     # first add head info
-    output_str += build_html_head(page_title, css_include_list, main_fp)
+    output_str += build_html_head(main_str, css_include_list)
     # then add body info
-    body_info = wrap_with_tag(gv.header + create_main_fragment_from_file(main_fp) + gv.footer, 'body')
+
+    # first create string
+    body_info = wrap_with_tag(gv.header + main_str + gv.footer, 'body')
     output_str += body_info
 
     # wrap with HTML tag and return
@@ -24,12 +31,11 @@ def assemble_HTML(page_title, css_include_list, main_fp):
 
     
 
-
-
-
-def create_main_fragment_from_file(main_fp, encoding = 'utf-8'):
+def create_main_fragment_from_pandoc(main_fp, encoding = 'utf-8'):
     """
-    Return the contents of the file (wrapped with <main> tags) in the filepath.
+    Return the contents of a pandoc'd file in the filepath.
+    The pandoc'd file is also wrapped with a 'container-fluid wrapper' <div> tag
+    and a <main> tag.
     """
     with open(main_fp, mode = 'r', encoding = 'utf-8') as f:
         # currently also have a wrapper inside main
@@ -42,12 +48,14 @@ def create_main_fragment_from_file(main_fp, encoding = 'utf-8'):
 
 
 # @wrap_with_tag('head')
-def build_html_head(page_title, css_include_list, fp):
+def build_html_head(main_content_str, css_include_list):
     '''
     Assembles HTML head from miscellaneous parts.
-    
-    page_title = The title to be displayed in the browser 
-        (appended by " - davidkhachatrian.com")
+
+    Page title and metadata tags are determined by 
+    main_content_str's metadata comments.
+
+    main_content_str = string of <main> section of HTML body
     css_include_list = List of CSS files to include in HTML head.
     '''
     output_head = ''
@@ -56,7 +64,12 @@ def build_html_head(page_title, css_include_list, fp):
     meta_info = gv.meta_info
 
     # add file-specific metadata (prepended to file's contents)
-    meta_info += parse_fp_for_metadata(fp)
+
+    file_meta_info = parse_str_for_metadata(main_content_str)
+    file_meta_info_str = convert_meta_dict_to_str(file_meta_info)
+
+    meta_info += (file_meta_info_str)
+
 
     # once we have a favicon, add this to HTML head
     # favicon_info = '<!-- <link rel="icon" href="http://getbootstrap.com/docs/3.3/favicon.ico"> -->'
@@ -73,7 +86,7 @@ def build_html_head(page_title, css_include_list, fp):
     return wrap_with_tag(output_head, 'head')
 
 
-def parse_fp_for_metadata(fp):
+def parse_str_for_metadata(main_content_str):
     '''
     Look for metadata within the delimiters
     '## BEGIN METADATA ##' and '## END METADATA ##'
@@ -86,6 +99,26 @@ def parse_fp_for_metadata(fp):
     In the file, the metadata should be separated by two colons:
     {name}::{content}
     '''
+
+
+    meta_dict = {}
+    try:
+        meta_match = gv.re_metadata_finder.findall(main_content_str)
+        assert len(meta_match) == 1
+        meta_str = meta_match[0]
+        meta_list = [e for e in meta_str.split('\n') if e != '']
+        for entry in meta_list:
+            temp_list = entry.split(gv.metadata_split_marker)
+            if len(temp_list) == 2:
+                name, content = [e.strip() for e in temp_list]
+                meta_dict[name] = content
+        return meta_dict
+    except AssertionError:
+        return {}
+
+
+
+
     # for whatever reason, trying to wrap the function in a
     # try-except-finally block breaks output.
     # 
@@ -94,46 +127,62 @@ def parse_fp_for_metadata(fp):
     # a return statement in the try block
     # At the very least, that's the only thing that makes sense
     # to what I've noticed (removing the finally block fixes output)
-    meta_format_str = '<meta name="{0}" content="{1}">'
+    # meta_format_str = '<meta name="{0}" content="{1}">'
     # out_str = ''
-    try:
-        with open(fp) as f:
-            # see if there even is any metadata to parse
-            # we'll have the marker at the start, if at all
-            # assert gv.metadata_start_tag in next(f)
-            # print('passed assertion')
+    # try:
+    #     with open(fp) as f:
+    #         # see if there even is any metadata to parse
+    #         # we'll have the marker at the start, if at all
+    #         # assert gv.metadata_start_tag in next(f)
+    #         # print('passed assertion')
 
-            for line in f:
-                if gv.metadata_start_tag in line:
-                    break
+    #         for line in f:
+    #             if gv.metadata_start_tag in line:
+    #                 break
 
 
-            meta_list = []
+    #         # meta_list = []
+    #         meta_dict = {}
 
-            # not the prettiest :p
-            for line in f:
-                # print('line = {0}'.format(line))
-                if gv.metadata_end_tag not in line:
-                    temp_list = line.split(gv.metadata_split_marker)
-                    # print('meta_list = {}'.format(meta_list))
-                    # assert len(temp_list) == 2
-                    if len(temp_list) == 2:
-                        name, content = [e.strip() for e in temp_list]
-                        if name.lower() == 'title':
-                            meta_line = wrap_with_tag('{0} - davidkhachatrian.com'.format(content), 'title')
-                        else:
-                            meta_line = meta_format_str.format(name, content)
-                        # print('meta_line: {0}'.format(meta_line))
-                        meta_list.append(meta_line)
-        # '\n' for readability
-        # print('meta_list: {}'.format(meta_list))
-        return '\n'.join(meta_list)
-    except AssertionError:
-        # print('assertion fail')
-        return ''
-    # finally:
-    #     return ''
+    #         # not the prettiest :p
+    #         for line in f:
+    #             # print('line = {0}'.format(line))
+    #             if gv.metadata_end_tag not in line:
+    #                 temp_list = line.split(gv.metadata_split_marker)
+    #                 # print('meta_list = {}'.format(meta_list))
+    #                 # assert len(temp_list) == 2
+    #                 if len(temp_list) == 2:
+    #                     name, content = [e.strip() for e in temp_list]
+    #                     meta_dict[name] = content
+    #                     # print('meta_line: {0}'.format(meta_line))
+    #                     # meta_list.append(meta_line)
+    #     # # '\n' for readability
+    #     # # print('meta_list: {}'.format(meta_list))
+    #     # return '\n'.join(meta_list)
+    #     return meta_dict
+    # except AssertionError:
+    #     # print('assertion fail')
+    #     # return ''
+    #     return {}
+    # # finally:
+    # #     return ''
 
+
+def convert_meta_dict_to_str(meta_dict):
+    '''Converts a dictionary of (name, content)
+    to meta tags for inclusion in HTML header.'''
+
+    # meta_format_str = '<meta name="{0}" content="{1}">'
+    meta_list = []
+    for (name, content) in meta_dict.items():
+        if name.lower() == 'title':
+            meta_line = wrap_with_tag('{0} - davidkhachatrian.com'.format(content), 'title')
+        else:
+            # meta_line = meta_format_str.format(name, content)
+            meta_line = wrap_with_tag('', 'meta', specifiers={'name': name, 'content': content})
+        meta_list.append(meta_line)
+    # using '\n' for readability
+    return '\n'.join(meta_list)
 
 
 

@@ -1,6 +1,7 @@
 from os.path import dirname, abspath, realpath
 from os.path import join as os_join
 import re
+# from datetime import datetime
 
 # py file should be located at {root}/soruce_files_and_configs/scripts/{filename}
 
@@ -10,12 +11,36 @@ serve_dirname = 'build'
 source_dir = dirname(dirname(abspath(realpath(__file__))))
 root_dir = dirname(source_dir)
 serve_dir = os_join(root_dir, serve_dirname)
+blog_source_dir = os_join(source_dir, 'blog')
 
 
 include_list_standard = ['bootstrap-mod', 'manually-built-page', 'header', 'footer', 'wrapper']
 include_list_pandoc = include_list_standard + ['pandoc-mod']
+include_list_blog_index = include_list_standard + ['blog-index']
+
+
+# for control flow of build_website, build_blog_index
+pandoc_exts = {'.md': 'gfm'}
+sass_exts = ['.scss']
+copy_exts = ['.html', '.pdf', '.svg', '.png', '.jpg', '.css']
+
+# ignore file or dir if starts with exclude_marker
+exclude_marker = '_'
+
+
+metadata_start_tag = '## BEGIN METADATA ##' 
+metadata_end_tag = '## END METADATA ##'
+
+metadata_split_marker = '::'
 
 re_source_matcher = re.compile(source_dirname)
+re_metadata_finder = re.compile(r'{0}(.*?){1}'.format(metadata_start_tag, metadata_end_tag), flags=re.DOTALL)
+
+# We format the date metadata as e.g. "January 1 2018"
+# this corresponds (according to http://strftime.org/)
+# to a format of
+date_format_str ='%B %d %Y'
+
 
 # should be true on any page
 meta_info = '''<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -25,9 +50,7 @@ meta_info = '''<meta http-equiv="Content-Type" content="text/html; charset=UTF-8
     <meta name="description" content="DK's pocket of the Internet.">
     <meta name="author" content="David G. Khachatrian">'''
 
-metadata_start_tag = '## BEGIN METADATA ##' 
-metadata_end_tag = '## END METADATA ##'
-metadata_split_marker = '::'
+
 
 
 header = """
@@ -76,4 +99,34 @@ footer = """
                 </div>
         </div>
 </footer>
+"""
+
+
+blog_item_format_str = """
+<div class='blog-item'>
+    <!-- On larger viewports: One row -->
+    <div class="container-fluid d-none d-lg-block">
+            <div class="row align-items-center">
+                <div class="h-100 col-9 mr-auto title">
+                    <a href="{filepath}">{title}.</a>
+                </div>
+                <div class="h-100 col-auto date">
+                    <p>{date}</p>
+                </div>
+            </div>
+        </div>
+    <!-- Header on smaller viewports: Two stacked rows -->
+    <div class="container-fluid d-lg-none">
+        <div class="row align-items-center title">
+            <div class="col-12 center-text">
+                <a href="{filepath}">{title}</a>
+            </div>
+        <!-- </div> -->
+        <!-- <div class="row flex-column align-items-center title"> -->
+            <div class="h-100 col-12 center-text date">
+                    <p>{date}</p>
+            </div>
+        </div>
+    </div>
+</div>
 """

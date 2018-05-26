@@ -5,6 +5,7 @@ import shutil # copy-paste files
 import shlex # feed proper commands to subprocess
 import re
 import string_dump as sd
+from datetime import datetime # for sorting of blog entries
 
 def build_website(css_include_list = gv.include_list_pandoc,
  keep_in_source_dir = False):
@@ -22,14 +23,11 @@ def build_website(css_include_list = gv.include_list_pandoc,
     extensions.
     (Pandoc is called to perform the conversion prcoess.)
     '''
-    pandoc_exts = {'.md': 'gfm'}
-    sass_exts = ['.scss']
-    copy_exts = ['.html', '.pdf', '.svg', '.png', '.jpg', '.css']
+
 
     # # folders not to look into
     # exclude_dirs = ['scripts']
-    # ignore file or dir if starts with exclude_marker
-    exclude_marker = '_'
+
 
 
     for root, dirs, files in os.walk(gv.source_dir, topdown=True):
@@ -38,10 +36,10 @@ def build_website(css_include_list = gv.include_list_pandoc,
         # '[:]' needed to modify dirs *in-place*
         # (otherwise we're just shadowing 'dirs' within the loop
         #  and not changing the list os.walk uses to generate its tuples)
-        dirs[:] = [d for d in dirs if not d.startswith(exclude_marker)]
+        dirs[:] = [d for d in dirs if not d.startswith(gv.exclude_marker)]
             
         # determine files to be converted
-        relevant_files = [fn for fn in files if not fn.startswith(exclude_marker)]
+        relevant_files = [fn for fn in files if not fn.startswith(gv.exclude_marker)]
         # relevant_files = [fn for fn in files if fn.split('.')[-1] in extensions]
         # names_without_extensions = [fn.split('.')[-1] for fn in pandoc_files]
 
@@ -57,10 +55,10 @@ def build_website(css_include_list = gv.include_list_pandoc,
             # for output file
             output_path = os.path.join(build_path_cur, fn_front + fn_ext)
 
-            if fn_ext in pandoc_exts.keys(): # all aboard the pandoc express
+            if fn_ext in gv.pandoc_exts.keys(): # all aboard the pandoc express
                 fn_html = fn_front + '.html'
                 temp_html_fp = os.path.join(cur_root, fn_html)
-                argv = ['pandoc', '--from={}'.format(pandoc_exts[fn_ext]), 
+                argv = ['pandoc', '--from={}'.format(gv.pandoc_exts[fn_ext]), 
                             '--to=html', fn, '-o', fn_html]
                 try:
                     subprocess.run(argv, cwd=cur_root, check=True) # generate HTML fragment
@@ -68,8 +66,10 @@ def build_website(css_include_list = gv.include_list_pandoc,
                     print("error code", grepexc.returncode, grepexc.output)
                     exit()
                 
+                main_str = sd.create_main_fragment_from_pandoc(temp_html_fp)
+
                 # generate full HTML str
-                html_str = sd.assemble_HTML(fn_front, css_include_list, temp_html_fp)
+                html_str = sd.assemble_HTML(main_str, css_include_list)
                 # remove fragment from directory (no longer needed)
                 os.remove(temp_html_fp)
                 
@@ -84,12 +84,12 @@ def build_website(css_include_list = gv.include_list_pandoc,
                 # dump HTML file in build
                 with open(output_path, mode = 'w') as f:
                     f.write(html_str)
-            elif fn_ext in sass_exts: # build CSS and place in build dir
+            elif fn_ext in gv.sass_exts: # build CSS and place in build dir
                 # fix output extension before running ('.css', not '.scss')
                 output_path = os.path.join(build_path_cur, fn_front + '.css')
                 argv = ['sass', os.path.join(cur_root, fn), output_path]
                 subprocess.run(argv)
-            elif fn_ext in copy_exts: # just copy-pasta
+            elif fn_ext in gv.copy_exts: # just copy-pasta
                 shutil.copy(os.path.join(cur_root, fn), output_path)
             else: # that ain't good!
                 # raise OSError("File extension not covered in build_website but entered inner loop!\n\
@@ -105,6 +105,34 @@ def build_website(css_include_list = gv.include_list_pandoc,
 #     # return ['"{}"'.format(arg) if ' ' in arg else arg for arg in args]
 #     return args
 
+def build_blog_index(blog_source_dir = gv.blog_source_dir, css_includes = gv.include_list_blog_index):
+    '''
+    Given a blog source directory, generate an HTML file (with proper stylesheets)
+    linking to the files *relative to the index's location in the blog (build) directory*,
+    i.e., with '.' in the <a href> tags.
+    
+    Metadata from blog source files are used to pull out title and date and populate
+    the HTML file itself.
+    Lists out entries in reverse chronological order.
+    
+    (Dumps the HTML file in the build directory.)
+    '''
+    # will want to stick copypasta of "blog-item" into global_vars and format it
+    # using the metadata from the source blog files
+
+    # traverse blog_source_dir looking for files that end in a blog file extension
+    # (i.e. the keys of pandoc_exts)
+    # Parse the metadata per file, and put into a list (of dicts)
+    # Sort the dict via dict's date value (via conversion to a datetime object)
+    # And use each dict to format the blog_item_format_str
+    # Wrap with 
+    # <main class="container-fluid wrapper blog-list text-ellipsis"> </main>
+    # This concludes the main
+    # pass onto the HTML assembler to get full HTML str
+    # finally dump in appropriate folder
+
+
+
 
 
 def _source_to_build(fpath):
@@ -117,3 +145,4 @@ def _source_to_build(fpath):
 # make executable
 if __name__ == '__main__':
     build_website()
+    # build_blog_index()
