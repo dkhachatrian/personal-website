@@ -26,6 +26,10 @@ main {
   flex: 1 0 auto;
 }
 
+a {
+  color: #183cdd;
+}
+
 .main-message {
   text-align: center;
   font-size: 1.5em;
@@ -44,5 +48,19 @@ main {
   body {
     font-size: 100%;
   }
+}
+
+.center-all {
+  text-align: center;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  align-self: center;
+  justify-self: center;
+}
+
+.center-text {
+  text-align: center;
 }
 /*# sourceMappingURL=manually-built-page.css.map */

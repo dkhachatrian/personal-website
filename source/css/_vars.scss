@@ -1,4 +1,4 @@
-// defaults for <body>
+// defaults
 
 $main-text-color: #444;
 $main-background-color: #fefefe;
@@ -8,18 +8,28 @@ $main-background-color: #fefefe;
 $main-font-size: 87.5%; // ~14px
 $main-font-size-lg: 100%; // ~16px, for larger devices
 $main-font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
+$link-color: rgb(24, 60, 221);
 
 // header
 
 $header-link-color: rgba(51, 73, 170, 0.712);
 
 
+
+
 // footer
 
 $footer-icon-color: rgba(0, 0, 0, 0.733);
 $footer-size: 5vh; // leave space at the bottom for footer logos
-$footer-bottom-margin: 10vh;
-    // leave breathing room from logos to end of screen
+$footer-bottom-margin: 10vh; //leave breathing room from logos to end of screen
+
+
+
+// blog
+
+$blog-link-color: #2123a3;
+
+
 
 // relative sizes for bootstrap
 // as per https://stackoverflow.com/questions/47747208/bootstrap-4-change-breakpoints

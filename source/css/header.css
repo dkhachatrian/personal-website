@@ -17,6 +17,13 @@
   height: 6em;
 }
 
+@media (min-width: 992px) {
+  .header {
+    margin-bottom: 3em;
+    height: 3em;
+  }
+}
+
 .brand {
   font-size: 3em;
   height: 1.5em;

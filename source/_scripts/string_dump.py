@@ -137,7 +137,7 @@ def parse_fp_for_metadata(fp):
 
 
 
-def wrap_with_tag(f, tag, specifiers = {}):
+def wrap_with_tag(f, tag, specifiers = {}, make_end_tag = True):
     '''
     Acts differently depending on first argument.
     If first argument is a callable:
@@ -147,9 +147,14 @@ def wrap_with_tag(f, tag, specifiers = {}):
 
     Otherwise (if first arg can be formatted into a string):
     - directly returns the first arg wrapped by the tag
+
+    If '' is passed as the first argument, no </end_tag> is created
+    (for use in e.g. header meta-tags).
     '''
     # build tags
-    end_tag = "</{}>".format(tag)
+    end_tag = ''
+    if f != '':
+        end_tag = "</{}>".format(tag)
     specifier_str = ''
     # build specifiers as necessary
     for (k,v) in specifiers.items():

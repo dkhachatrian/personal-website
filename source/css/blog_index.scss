@@ -1,0 +1,31 @@
+@import '_vars';
+
+.blog-list {
+    & .title {
+        font-size: 1.5em;
+    }
+    & .date {
+        font-size: 1.2em;
+    }
+}
+
+.blog-item {
+    & {
+    margin-bottom: 0.5em;
+    }
+
+    & a {
+        color: $blog-link-color;
+    }
+}
+
+// note: col cannot be auto
+// (if it is, it flexboxes such that
+//  "overflow" isn't occurring)
+.text-ellipsis {
+    &, & * {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    }
+}

@@ -15,6 +15,13 @@
     //     // font-weight: bold;
     // } 
 }
+@media (min-width: map-get($grid-breakpoints, lg)) {
+    .header {
+        margin-bottom: 3em;
+        height: 3em;
+    }
+} 
+
 
 // for some reason, the above declaration for
 // .header .brand gets compiled to

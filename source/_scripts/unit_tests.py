@@ -25,6 +25,13 @@ assert sd.wrap_with_tag(echo, 'html')('hi') == "<html>hi</html>" # "basic"
 assert sd.wrap_with_tag(echo, 'html', {'class': ['foo', 'bar']})('hi') == '<html class="foo bar">hi</html>' # specifiers with list
 assert sd.wrap_with_tag(echo, 'html', {'class': 'foo bar'})('hi') == '<html class="foo bar">hi</html>' # specifiers as str
 assert sd.wrap_with_tag('hi', 'html') == '<html>hi</html>' # works with strings directly
+assert sd.wrap_with_tag('hi', 'html', specifiers={'type': 'salutation', 'flavor': ['spicy', 'delicious']})\
+                 == '<html type="salutation" flavor="spicy delicious">hi</html>' # handles multiple keys in specifier
+assert sd.wrap_with_tag('', 'meta', specifiers={'introspection-level': 'deep', 'meaning': 'shallow'})\
+                 == '<meta introspection-level="deep" meaning="shallow">' # handles meta-like tags
+
+
+
 
 
 # CSS includes

@@ -56,6 +56,11 @@ main {
     flex: 1 0 auto; //flexboxes still seem like magic to me...
 }
 
+a {
+    // color: $blog-link-color; // doesn't contrast well with regular text...
+    color: $link-color;
+}
+
 // </sticky footer settings>
 
 
@@ -101,8 +106,21 @@ main {
     body {font-size: $main-font-size-lg;}
 }
 
+// center the *hell* out of it
+// 'align' is along main axis
+// 'justify' is along minor axis
+.center-all {
+    text-align: center;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    align-self: center;
+    justify-self: center;
+}
 
-      
-
+.center-text {
+    text-align: center;
+}
 
 
