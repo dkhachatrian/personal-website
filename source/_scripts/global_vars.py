@@ -64,7 +64,7 @@ header = """
             <li><a href="/">Home</a></li>
             <li><a href="/presentations">Presentations</a></li>
             <li><a href="/cv">CV</a></li>
-            <!-- <li><a href="/blog">Blog</a></li> -->
+            <li><a href="/blog">Blog</a></li>
         </ul>
     </div>
 </header>
@@ -79,7 +79,7 @@ header = """
             <li><a href="/">Home</a></li>
             <li><a href="/presentations">Presentations</a></li>
             <li><a href="/cv">CV</a></li>
-            <!-- <li><a href="/blog">Blog</a></li> -->
+            <li><a href="/blog">Blog</a></li>
         </ul>
     </div>
 </header>
@@ -107,10 +107,10 @@ blog_item_format_str = """
     <!-- On larger viewports: One row -->
     <div class="container-fluid d-none d-lg-block">
             <div class="row align-items-center">
-                <div class="h-100 col-9 mr-auto title">
-                    <a href="{filepath}">{title}.</a>
+                <div class="col-9 mr-auto title">
+                    <a href="{filepath}">{title}</a>
                 </div>
-                <div class="h-100 col-auto date">
+                <div class="col-auto date">
                     <p>{date}</p>
                 </div>
             </div>
@@ -123,7 +123,7 @@ blog_item_format_str = """
             </div>
         <!-- </div> -->
         <!-- <div class="row flex-column align-items-center title"> -->
-            <div class="h-100 col-12 center-text date">
+            <div class="col-12 center-text date">
                     <p>{date}</p>
             </div>
         </div>

@@ -1,3 +1,8 @@
+<!-- ## BEGIN METADATA ##
+title:: So, you can't install that wheel, huh?
+date:: April 26 2018
+## END METADATA ## -->
+
 # So, you can't install that wheel, huh?
 
 In particular, say you're trying to install a package and you get an error like:
