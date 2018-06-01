@@ -32,7 +32,7 @@ body {
     color: $main-text-color;
     font-family: $main-font-family;
     // font-size: 12px;
-    font-size: $main-font-size;
+    font-size: $main-font-size-xs;
     // font-size: 1vh;
     line-height: 1.7;
     // line-height: 1em; 
@@ -102,6 +102,12 @@ a {
 
 // @include media-breakpoint-down(sm) { // not working...
     // for viewports LARGER than min-width
+@media (min-width: 460px) {
+    body {font-size: $main-font-size-sm;}
+    }
+@media (min-width: 600px) {
+    body {font-size: $main-font-size;}
+}
 @media (min-width: 1200px) {
     body {font-size: $main-font-size-lg;}
 }

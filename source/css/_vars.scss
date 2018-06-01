@@ -5,6 +5,9 @@ $main-background-color: #fefefe;
     // absolute font sizes
     // (Let's make these relative to browser default:
     //  100% ~ 16px usually)
+
+$main-font-size-xs: 45%; // for 300px-width devices
+$main-font-size-sm: 75%; // ~12px
 $main-font-size: 87.5%; // ~14px
 $main-font-size-lg: 100%; // ~16px, for larger devices
 $main-font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
