@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import global_vars as gv
 import os
 import subprocess # run pandoc and sass
@@ -111,7 +112,7 @@ def build_website(css_include_list = gv.include_list_pandoc,
 #     # return ['"{}"'.format(arg) if ' ' in arg else arg for arg in args]
 #     return args
 
-def build_blog_index(blog_source_dir = gv.blog_source_dir, css_includes = gv.include_list_blog_index):
+def build_blog_index(blog_source_dir = gv.blog_source_dir, css_includes = gv.include_list_blog_index, under_construction = False):
     '''
     Given a blog source directory, generate an HTML file (with proper stylesheets)
     linking to the files *relative to the index's location in the blog (build) directory*,
@@ -120,6 +121,9 @@ def build_blog_index(blog_source_dir = gv.blog_source_dir, css_includes = gv.inc
     Metadata from blog source files are used to pull out title and date and populate
     the HTML file itself.
     Lists out entries in reverse chronological order.
+
+    If under_construction is set to true, adds an under-construction note
+    at the top of the HTML's main.
     
     (Dumps the HTML file in the build directory.)
     '''
@@ -200,6 +204,11 @@ def build_blog_index(blog_source_dir = gv.blog_source_dir, css_includes = gv.inc
     blog_str_list = [gv.blog_item_format_str.format(**meta_info) for meta_info in sorted_blog_list]
 
     blog_str = '\n'.join(blog_str_list)
+
+    # place under-construction div if relevant
+    if under_construction:
+        blog_str = gv.under_construction_div + blog_str
+
     # Wrap with 
     # <main class="container-fluid wrapper blog-list text-ellipsis"> </main>
     class_attrs = ['container-fluid', 'wrapper', 'blog-list', 'text-ellipsis']
@@ -231,4 +240,4 @@ def _source_to_build(fpath):
 # make executable
 if __name__ == '__main__':
     build_website()
-    build_blog_index()
+    build_blog_index(under_construction = True)

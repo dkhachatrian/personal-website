@@ -130,3 +130,10 @@ blog_item_format_str = """
     </div>
 </div>
 """
+
+# div to place at top of body
+# to note when website part is still under construction
+under_construction_div = """<div class="col-12 center-text" style="
+font-size: 2em;
+margin-bottom: 1em;
+white-space: normal;">(Excuse the relative emptiness. Still in the process of populating with old writeups.)</div>"""
