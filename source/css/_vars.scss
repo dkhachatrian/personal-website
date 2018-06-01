@@ -13,6 +13,12 @@ $main-font-size-lg: 100%; // ~16px, for larger devices
 $main-font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
 $link-color: rgb(24, 60, 221);
 
+// in mobile, browser's URL bar pushes everything down
+// so if there's not enough content, just have a smaller min-height
+$body-min-height: 90vh;
+
+
+
 // header
 
 $header-link-color: rgba(51, 73, 170, 0.712);
@@ -24,7 +30,7 @@ $header-link-color: rgba(51, 73, 170, 0.712);
 
 $footer-icon-color: rgba(0, 0, 0, 0.733);
 $footer-size: 5vh; // leave space at the bottom for footer logos
-$footer-bottom-margin: 10vh; //leave breathing room from logos to end of screen
+$footer-bottom-margin: 5vh; //leave breathing room from logos to end of screen
 
 
 

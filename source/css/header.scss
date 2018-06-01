@@ -5,9 +5,10 @@
     & {
         // padding-bottom: 6em;
         margin-bottom: 6em;
-        font-family: $main-font-family;
-        font-size: $main-font-size;
+        // font-family: $main-font-family;
+        // font-size: $main-font-size;
         height: 6em;
+        font-size: 70%;
     }
     // &   .brand { // i.e., my name
     //     font-size: 3em;
@@ -21,6 +22,11 @@
         height: 3em;
     }
 } 
+
+@media (min-width: 600px){
+    .header {font-size: 100%;}
+}
+
 
 
 // for some reason, the above declaration for

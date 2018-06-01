@@ -9,21 +9,11 @@ html {
 body {
   color: #444;
   font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
-  font-size: 45%;
+  font-size: 75%;
   line-height: 1.7;
   padding: 1em;
   max-width: 100%;
   background-color: #fefefe;
-}
-
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-main {
-  flex: 1 0 auto;
 }
 
 a {
@@ -44,21 +34,15 @@ a {
   margin-top: 0.2em;
 }
 
-@media (min-width: 460px) {
+@media (min-width: 1200px) {
   body {
-    font-size: 75%;
+    font-size: 100%;
   }
 }
 
 @media (min-width: 600px) {
   body {
     font-size: 87.5%;
-  }
-}
-
-@media (min-width: 1200px) {
-  body {
-    font-size: 100%;
   }
 }
 

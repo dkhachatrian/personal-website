@@ -12,15 +12,20 @@
 
 .header {
   margin-bottom: 6em;
-  font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman", serif;
-  font-size: 87.5%;
   height: 6em;
+  font-size: 70%;
 }
 
 @media (min-width: 992px) {
   .header {
     margin-bottom: 3em;
     height: 3em;
+  }
+}
+
+@media (min-width: 600px) {
+  .header {
+    font-size: 100%;
   }
 }
 
