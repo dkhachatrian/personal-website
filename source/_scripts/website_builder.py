@@ -1,17 +1,21 @@
 #!/usr/bin/env python3
-import global_vars as gv
 import os
 import subprocess # run pandoc and sass
 import shutil # copy-paste files
 import shlex # feed proper commands to subprocess
 import re
-import string_dump as sd
 # method of getting value from dict for sorting
 # arguably more readable than a lambda function
 # As suggested in: https://stackoverflow.com/questions/10695139/sort-a-list-of-tuples-by-2nd-item-integer-value
 from operator import itemgetter 
 from datetime import datetime # for sorting of blog entries
-from functools import partial
+# from functools import partial
+
+
+
+import string_dump as sd
+import global_vars as gv
+import file_getter as fg
 
 def build_website(css_include_list = gv.include_list_pandoc,
  keep_in_source_dir = False):
@@ -233,7 +237,7 @@ def build_blog_index(blog_source_dir = gv.blog_source_dir, css_includes = gv.inc
 def _source_to_build(fpath):
   '''Convert from source path to build path.'''
 
-  return gv.re_source_matcher.sub(gv.serve_dirname, fpath)
+  return gv.re_source_matcher.sub(gv.build_dirname, fpath)
 
 
 
@@ -241,3 +245,4 @@ def _source_to_build(fpath):
 if __name__ == '__main__':
     build_website()
     build_blog_index(under_construction = True)
+    fg.download_files()

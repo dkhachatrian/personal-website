@@ -6,12 +6,23 @@ import re
 # py file should be located at {root}/soruce_files_and_configs/scripts/{filename}
 
 source_dirname = 'source'
-serve_dirname = 'build'
+build_dirname = 'build'
 
 source_dir = dirname(dirname(abspath(realpath(__file__))))
 root_dir = dirname(source_dir)
-serve_dir = os_join(root_dir, serve_dirname)
+build_dir = os_join(root_dir, build_dirname)
 blog_source_dir = os_join(source_dir, 'blog')
+
+
+# direct link to LaTeX writeup from my master branch
+writeup_uri = """https://github.com/dkhachatrian/writeups/raw/master/writeups.pdf"""
+
+# collect all the URIs -> paths needed, for file requests
+file_request_dict = {
+    writeup_uri: os_join(abspath(build_dir), 'docs', writeup_uri.split('/')[-1])
+    # ,
+}
+
 
 
 include_list_standard = ['bootstrap-mod', 'manually-built-page', 'header', 'footer', 'wrapper']
