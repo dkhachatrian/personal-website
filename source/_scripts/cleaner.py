@@ -16,6 +16,9 @@ def clean_dir(dir_path, file_exts):
     return
 
 if __name__ == '__main__':
+    # remove compiled CSS files from source -- only scss in source
     css_path = os.path.join(gv.source_dir, 'css')
     file_exts = ['css','map']
     clean_dir(css_path, file_exts)
+
+    

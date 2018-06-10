@@ -92,7 +92,7 @@ def build_website(css_include_list = gv.include_list_pandoc,
                 #   output_path = os.path.join(gv.root_dir, _source_to_build(root), fn_front + '.html')
 
                 # dump HTML file in build
-                with open(output_path, mode = 'w') as f:
+                with open(output_path, mode = 'w', encoding = 'utf-8') as f:
                     f.write(html_str)
             elif fn_ext in gv.sass_exts: # build CSS and place in build dir
                 # fix output extension before running ('.css', not '.scss')
