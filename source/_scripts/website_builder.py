@@ -79,7 +79,9 @@ def build_website(css_include_list = gv.include_list_pandoc,
                 main_str = sd.create_main_fragment_from_pandoc(temp_html_fp)
 
                 # generate full HTML str
-                html_str = sd.assemble_HTML(main_str, css_include_list)
+                # TODO: parse files ahead of time to build individual js_include_list
+                # (instead of sticking mathjax in everything that's been pandoc'd)
+                html_str = sd.assemble_HTML(main_str, css_include_list, js_include_list = ['mathjax'])
                 # remove fragment from directory (no longer needed)
                 os.remove(temp_html_fp)
                 

@@ -15,7 +15,7 @@ blog_source_dir = os_join(source_dir, 'blog')
 
 
 # direct link to LaTeX writeup from my master branch
-writeup_uri = """https://github.com/dkhachatrian/writeups/raw/master/writeups.pdf"""
+writeup_uri = """https://github.com/dkhachatrian/writeups/raw/master/main/main.pdf"""
 
 # collect all the URIs -> paths needed, for file requests
 file_request_dict = {
@@ -29,11 +29,19 @@ include_list_standard = ['bootstrap-mod', 'manually-built-page', 'header', 'foot
 include_list_pandoc = include_list_standard + ['pandoc-mod']
 include_list_blog_index = include_list_standard + ['blog-index']
 
+# TODO: passing the buck on hosting mathjax server-side for now
+# and just using a CDN (though I'm not a fan of doing it).
+# Mainly because archive is ridiculously large (>100 MB).
+# Though it appears there's a documented way to 
+# make hosting a copy of MathJax far more reasonable
+# (https://ro-che.info/articles/2017-04-02-deploying-mathjax)
+js_dict = {'mathjax': "<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>"}
+
 
 # for control flow of build_website, build_blog_index
 pandoc_exts = {'.md': 'gfm'}
 sass_exts = ['.scss']
-copy_exts = ['.html', '.pdf', '.svg', '.png', '.jpg', '.css']
+copy_exts = ['.html', '.pdf', '.svg', '.png', '.jpg', '.css', '.js']
 
 # ignore file or dir if starts with exclude_marker
 exclude_marker = '_'

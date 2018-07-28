@@ -4,7 +4,7 @@ import global_vars as gv
 # TODO: change functions to handle strings instead of file_paths
 # (we'll open and file.read() everything beforehand when necessary)
 
-def assemble_HTML(main_str, css_include_list):
+def assemble_HTML(main_str, css_include_list, js_include_list = []):
     """
     Build HTML file. (Returns a string.)
     Pass in following input:
@@ -12,6 +12,7 @@ def assemble_HTML(main_str, css_include_list):
     For <head>:
         - 'main_str' (which contains metadata in beginning comments)
         - 'css_include_list'
+        - 'js_include_list' (keys for gv.js_dict)
     For <body>:
         - 'main_str' (the string to be slotted between header and footer,
                         in body)
@@ -21,15 +22,23 @@ def assemble_HTML(main_str, css_include_list):
     # first add head info
     output_str += build_html_head(main_str, css_include_list)
     # then add body info
-
-    # first create string
-    body_info = wrap_with_tag(gv.header + main_str + gv.footer, 'body')
+    # put scripts at the end so beginning part of page loads faster
+    # (may need to change decision if JS becomes integral to website aesthetic)
+    js_str = _build_js_includes(js_include_list)
+    body_info = wrap_with_tag(gv.header + main_str + gv.footer + js_str, 'body')
     output_str += body_info
 
     # wrap with HTML tag and return
     return wrap_with_tag(output_str, 'html')
 
-    
+def _build_js_includes(js_list):
+    """ From list of dictionary keys, build string to include JS in HTML file."""
+    # TODO: doing a super lazy solution at the moment
+    # (paste desired string into a dictionary in gv and just send in the keys)
+    # Probably worth cleaning up, merging with _build_css_includes somehow
+
+    js_str = '\n'.join([gv.js_dict[item] for item in js_list])
+    return js_str
 
 def create_main_fragment_from_pandoc(main_fp, encoding = 'utf-8'):
     """
